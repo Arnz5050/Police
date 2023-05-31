@@ -4,10 +4,11 @@ local LastZone, CurrentAction, CurrentActionMsg
 
 -- Vehicle Spawn Menu
 function OpenSpawnerMenu()
-    local elements = 
+    elements = 
     {
         {unselectable = true, icon = "fas fa-car", title = "Police Vehicles"}
     }
+
     ESX.OpenContext("right", elements)
     if ESX.Game.IsSpawnPointClear(this_Spawner.Loc, 5.0)
     then
@@ -15,19 +16,17 @@ function OpenSpawnerMenu()
             elements[#elements+1] =
             {
                 title = Config.Vehicles[i].label,
-                model = Config.Vehicles[i].model
+                model = Config.Vehicles[i].model,
             }
         end
         ESX.OpenContext("right", elements, function(menu,element)
             CurrentActionData = {}
-            local Properties = 
+            Properties = 
             {
                 plate = 'NOTACOP',
                 modTurbo = true
             }
-            ESX.Game.SpawnVehicle(elements.model, Config.Zones.VehicleSpawner1.Loc, Config.Zones.VehicleSpawner1.Heading, Properties, function(vehicle)
-                TaskWarpPedIntoVehicle(GetPlayerPed(source), vehicle, -1)
-                end)
+            SpawnVehicle()
             end, function(menu)
         end)
     else
@@ -38,6 +37,11 @@ function OpenSpawnerMenu()
     end
 end
 
+function SpawnVehicle()
+    ESX.Game.SpawnVehicle(RequestModel(elements.model), Config.Zones.VehicleSpawner1.Loc, Config.Zones.VehicleSpawner1.Heading, Properties, function(vehicle)
+    TaskWarpPedIntoVehicle(PlayerPedId(), vehicle, -1)
+end)
+end
 
 -- Vehicle Return Menu
 function OpenReturnMenu()
