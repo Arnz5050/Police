@@ -19,11 +19,11 @@ function OpenSpawnerMenu()
 				})
 			end
 		end
-		elements = elements2
+	
 		
 		if ESX.Game.IsSpawnPointClear(this_Spawner.Loc, 5.0)
 		then
-			SpawnVehicle(data.current.model)
+			SpawnVehicle(elements2.current.model)
 			ESX.CloseContext()
 		else
 			ESX.ShowNotification(_U('spawnpoint_blocked'))
