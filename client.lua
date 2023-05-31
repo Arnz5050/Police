@@ -11,7 +11,7 @@ function OpenSpawnerMenu()
     ESX.OpenContext("right", elements)
     if ESX.Game.IsSpawnPointClear(this_Spawner.Loc, 5.0)
     then
-    for i = 1, #Config.Vehicles, 1 do
+        for i = 1, #Config.Vehicles, 1 do
             elements[#elements+1] =
             {
                 title = Config.Vehicles[i].label,
@@ -20,15 +20,21 @@ function OpenSpawnerMenu()
         end
         ESX.OpenContext("right", elements, function(menu,element)
             CurrentActionData = {}
-            SpawnVehicle()
-            ESX.CloseContext()
+            local Properties = 
+            {
+                plate = 'NOTACOP',
+                modTurbo = true
+            }
+            ESX.Game.SpawnVehicle(elements.model, Config.Zones.VehicleSpawner1.Loc, Config.Zones.VehicleSpawner1.Heading, Properties, function(vehicle)
+                TaskWarpPedIntoVehicle(GetPlayerPed(source), vehicle, -1)
+                end)
             end, function(menu)
         end)
     else
+        ESX.CloseContext()
         CurrentAction = nil
         CurrentActionData = {}
         ESX.ShowNotification(_U('spawnpoint_blocked'))
-        ESX.CloseContext()
     end
 end
 
@@ -56,12 +62,6 @@ function isVehicleListed(Model)
         end
     end
     return false
-end
-
-function SpawnVehicle(model)
-    ESX.Game.SpawnVehicle(model, Config.Zones.VehicleSpawner1.Loc, Config.Zones.VehicleSpawner1.Heading, props, function(vehicle)
-    TaskWarpPedIntoVehicle(GetPlayerPed(source), vehicle, -1)
-end)
 end
 
 -- Entered Marker
