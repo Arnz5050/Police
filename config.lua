@@ -15,8 +15,8 @@ Config.Zones = {
 }
 
 Config.Vehicles = {
-	{model = 'police', label = 'Police 1'},
-	{model = 'fbi', label = 'FBI 1'},
+	{model = 'police', label = 'Ford Crown Vic Marked'},
+	{model = 'fbi2', label = 'FBI Unmarked'},
 }
 
 Config.ListedVehicles = {
