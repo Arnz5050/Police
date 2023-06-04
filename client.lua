@@ -1,4 +1,4 @@
-local CurrentActionData, this_Spawner = {}, {}
+local this_Spawner = {}
 local HasAlreadyEnteredMarker = false
 local LastZone, CurrentAction, CurrentActionMsg
 
@@ -74,11 +74,9 @@ AddEventHandler('hasEnteredMarker', function(zone)
 if zone == 'spawner_point' then
     CurrentAction = 'spawner_point'
     CurrentActionMsg = _U('press_to_enter')
-    CurrentActionData = {}
 elseif zone == 'deleter_point' then
     CurrentAction = 'deleter_point'
     CurrentActionMsg = _U('press_to_enter2')
-    CurrentActionData = {}
 end
 end)
 
